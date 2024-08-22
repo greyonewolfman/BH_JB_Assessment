@@ -101,12 +101,4 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
       }
     }
   }
-  ### To Send the Alert ################
-  notification {
-    email {
-      send_to_subscription_administrator    = false
-      send_to_subscription_co_administrator = false
-      custom_emails                         = [var.CUSTOM_EMAILS]
-    }
-  }
 }

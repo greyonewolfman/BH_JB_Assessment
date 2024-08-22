@@ -25,7 +25,7 @@ variable "SUBSCRIPTION_ID" {
 variable "WEBAPP_PLAN_NAME" {
   type = string
 }
-variable "WEBAPPNAME" {
+variable "WEB_APP_NAME" {
   type = string
 }
 variable "DOCKER_REGISTRY_SERVER_PASSWORD" {

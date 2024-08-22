@@ -25,8 +25,8 @@ resource "azurerm_service_plan" "ServicesPlan" {
   sku_name                                = var.SKU_NAME
 }
 
-resource "azurerm_linux_web_app" "DevWebApp" {
-  name                                    = var.WEBAPPNAME
+resource "azurerm_linux_web_app" "WebApp" {
+  name                                    = var.WEB_APP_NAME
   resource_group_name                     = azurerm_resource_group.rg.name
   location                                = azurerm_service_plan.ServicesPlan.location
   service_plan_id                         = azurerm_service_plan.ServicesPlan.id
@@ -45,15 +45,15 @@ resource "azurerm_linux_web_app" "DevWebApp" {
 }
 
 output "webapp_name" {
-  value = azurerm_linux_web_app.DevWebApp.name
+  value = azurerm_linux_web_app.WebApp.name
 }
 
 ### To Create the Azure Auto Scale based on the CPU Percentage ################
 resource "azurerm_monitor_autoscale_setting" "autoscale" {
   name                                    = var.APP_AUTOSCALE
-  resource_group_name                     = azurerm_service_plan.webplan.resource_group_name
-  location                                = azurerm_service_plan.webplan.location
-  target_resource_id                      = azurerm_service_plan.webplan.id
+  resource_group_name                     = azurerm_service_plan.ServicesPlan.resource_group_name
+  location                                = azurerm_service_plan.ServicesPlan.location
+  target_resource_id                      = azurerm_service_plan.ServicesPlan.id
 
   profile {
     name = "defaultProfile"
@@ -65,7 +65,7 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
     rule {
       metric_trigger {
         metric_name        = "CpuPercentage"
-        metric_resource_id = azurerm_service_plan.webplan.id
+        metric_resource_id = azurerm_service_plan.ServicesPlan.id
         time_grain         = "PT1M"
         statistic          = "Average"
         time_window        = "PT5M"
@@ -85,7 +85,7 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
     rule {
       metric_trigger {
         metric_name        = "CpuPercentage"
-        metric_resource_id = azurerm_service_plan.webplan.id
+        metric_resource_id = azurerm_service_plan.ServicesPlan.id
         time_grain         = "PT1M"
         statistic          = "Average"
         time_window        = "PT5M"

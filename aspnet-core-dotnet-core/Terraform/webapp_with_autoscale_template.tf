@@ -50,7 +50,7 @@ output "webapp_name" {
 
 ### To Create the Azure Auto Scale based on the CPU Percentage ################
 resource "azurerm_monitor_autoscale_setting" "autoscale" {
-  name                                    = var.APP_AUTOSCALE
+  name                                    = "Autoscale"
   resource_group_name                     = azurerm_service_plan.webplan.resource_group_name
   location                                = azurerm_service_plan.webplan.location
   target_resource_id                      = azurerm_service_plan.webplan.id

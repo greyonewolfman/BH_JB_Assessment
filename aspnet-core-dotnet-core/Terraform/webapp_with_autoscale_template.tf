@@ -13,20 +13,20 @@ terraform {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name                                    = "BH_JB_Assessment"
-  location                                = "West Europe"
+  name                                    = var.RG_NAME
+  location                                = var.LOCATION
 }
 
 resource "azurerm_service_plan" "ServicesPlan" {
-  name                                    = "devwebplan"
+  name                                    = var.WEBAPP_PLAN_NAME
   resource_group_name                     = azurerm_resource_group.rg.name
   location                                = azurerm_resource_group.rg.location
-  os_type                                 = "Linux"
-  sku_name                                = "F1"
+  os_type                                 = var.OS_TYPE
+  sku_name                                = var.SKU_NAME
 }
 
 resource "azurerm_linux_web_app" "DevWebApp" {
-  name                                    = "devwebapp"
+  name                                    = var.WEBAPPNAME
   resource_group_name                     = azurerm_resource_group.rg.name
   location                                = azurerm_service_plan.ServicesPlan.location
   service_plan_id                         = azurerm_service_plan.ServicesPlan.id
@@ -50,7 +50,7 @@ output "webapp_name" {
 
 ### To Create the Azure Auto Scale based on the CPU Percentage ################
 resource "azurerm_monitor_autoscale_setting" "autoscale" {
-  name                                    = "Autoscale"
+  name                                    = var.APP_AUTOSCALE
   resource_group_name                     = azurerm_service_plan.webplan.resource_group_name
   location                                = azurerm_service_plan.webplan.location
   target_resource_id                      = azurerm_service_plan.webplan.id
@@ -99,6 +99,14 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
         value     = "1"
         cooldown  = "PT1M"
       }
+    }
+  }
+  ### To Send the Alert ################
+  notification {
+    email {
+      send_to_subscription_administrator    = false
+      send_to_subscription_co_administrator = false
+      custom_emails                         = [var.CUSTOM_EMAILS]
     }
   }
 }

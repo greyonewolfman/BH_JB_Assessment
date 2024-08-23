@@ -14,7 +14,8 @@ variables:
   imageRepository: 'gprojectsazbhjbassessment'
   containerRegistry: 'bhjbcontainer.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: 'latest'
+  #tag: '$(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'

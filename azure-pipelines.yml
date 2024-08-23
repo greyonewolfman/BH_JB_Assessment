@@ -14,8 +14,8 @@ variables:
   imageRepository: 'gprojectsazbhjbassessment'
   containerRegistry: 'bhjbcontainer.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'
-  tag: 'latest'
-  #tag: '$(Build.BuildId)'
+  #tag: 'latest'
+  tag: '$(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -41,11 +41,11 @@ stages:
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: '$(Build.BinariesDirectory)'
-        includeRootFolder: true
+        includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         replaceExistingArchive: true
-    - task: PublishBuildArtifacts@1
+    - task: CopyPublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'

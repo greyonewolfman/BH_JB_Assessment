@@ -12,22 +12,17 @@ terraform {
   }
 }
 
-resource "azurerm_resource_group" "rg" {
-  name                                    = var.RG_NAME
-  location                                = var.LOCATION
-}
-
 resource "azurerm_service_plan" "ServicesPlan" {
   name                                    = var.WEBAPP_PLAN_NAME
-  resource_group_name                     = azurerm_resource_group.rg.name
-  location                                = azurerm_resource_group.rg.location
+  resource_group_name                     = var.RG_NAME
+  location                                = var.LOCATION
   os_type                                 = var.OS_TYPE
   sku_name                                = var.SKU_NAME
 }
 
 resource "azurerm_linux_web_app" "WebApp" {
   name                                    = var.WEB_APP_NAME
-  resource_group_name                     = azurerm_resource_group.rg.name
+  resource_group_name                     = var.RG_NAME
   location                                = azurerm_service_plan.ServicesPlan.location
   service_plan_id                         = azurerm_service_plan.ServicesPlan.id
 

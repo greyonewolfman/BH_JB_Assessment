@@ -47,6 +47,7 @@ stages:
         replaceExistingArchive: true
     - task: CopyPublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        CopyRoot: '$(Build.ArtifactStagingDirectory)'
+        Contents: '**'
         ArtifactName: 'drop'
-        publishLocation: 'Container'
+        ArtifactType: 'Container'

@@ -33,9 +33,9 @@ resource "azurerm_linux_web_app" "WebApp" {
   app_settings = {
     "SCM_DO_BUILD_DURING_DEPLOYMENT"      = "true"
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
-    "DOCKER_REGISTRY_SERVER_URL"          = var.DOCKER_REGISTRY_SERVER_URL
-    "DOCKER_REGISTRY_SERVER_USER"         = var.DOCKER_REGISTRY_SERVER_USERNAME
-    "DOCKER_REGISTRY_SERVER_PASSWORD"     = var.DOCKER_REGISTRY_SERVER_PASSWORD
+    "docker_registry_url"                 = var.DOCKER_REGISTRY_SERVER_URL
+    "docker_registry_username"            = var.DOCKER_REGISTRY_SERVER_USERNAME
+    "docker_registry_password"            = var.DOCKER_REGISTRY_SERVER_PASSWORD
   }
 }
 

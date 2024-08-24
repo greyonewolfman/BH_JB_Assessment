@@ -28,13 +28,13 @@ variable "WEBAPP_PLAN_NAME" {
 variable "WEB_APP_NAME" {
   type = string
 }
-variable "DOCKER_REGISTRY_SERVER_PASSWORD" {
+variable "DOCKER_REGISTRY_SERVER_PASSWORD_VAR" {
   type = string
 }
-variable "DOCKER_REGISTRY_SERVER_URL" {
+variable "DOCKER_REGISTRY_SERVER_URL_VAR" {
   type = string
 }
-variable "DOCKER_REGISTRY_SERVER_USERNAME" {
+variable "DOCKER_REGISTRY_SERVER_USERNAME_VAR" {
   type = string
 }
 variable "APP_AUTOSCALE" {

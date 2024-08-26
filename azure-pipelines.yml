@@ -6,6 +6,9 @@
 trigger:
 - main
 
+resources:
+- repo: self
+
 variables:
   AzureServiceConnection: 'Azure'
 
@@ -16,7 +19,7 @@ steps:
 - task: Docker@2
   inputs:
     azureSubscription: 'Azure'
-    command: 'buildAndPush'
-    containerRegistry: 'bhjbcontainer'
-    repository: 'gprojectsazbhjbassessment'
-    Dockerfile: '**/Dockerfile'
+    #command: 'buildAndPush'
+    #containerRegistry: 'bhjbcontainer'
+    #repository: 'gprojectsazbhjbassessment'
+    #Dockerfile: '**/Dockerfile'

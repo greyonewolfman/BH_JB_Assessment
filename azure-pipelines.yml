@@ -10,9 +10,10 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '27477a28-0c43-4140-91da-f6a9fd643b65'
+  #dockerRegistryServiceConnection: '27477a28-0c43-4140-91da-f6a9fd643b65'
   imageRepository: 'gprojectsazbhjbassessment'
-  containerRegistry: 'bhjbcontainer.azurecr.io'
+  containerRegistry: 'bhjbcontainer'
+  #containerRegistry: 'bhjbcontainer.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'
   tag: '$(Build.BuildId)'
   #tag: 'latest'
@@ -37,7 +38,8 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: $(containerRegistry)
+        #containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
 

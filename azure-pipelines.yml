@@ -21,5 +21,5 @@ steps:
     azureSubscription: 'Azure'
     #command: 'buildAndPush'
     #containerRegistry: 'bhjbcontainer'
-    #repository: 'gprojectsazbhjbassessment'
+    #repository: 'gprojectsazbhjbassessmenttest'
     #Dockerfile: '**/Dockerfile'

@@ -1,7 +1,6 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
 - main
@@ -9,13 +8,50 @@ trigger:
 resources:
 - repo: self
 
-pool:
-  vmImage: ubuntu-latest
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'Azure Docker'
+  imageRepository: 'gprojectsazbhjbassessment'
+  containerRegistry: 'bhjbcontainer'
+  dockerfilePath: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'
+  tag: '$(Build.BuildId)'  
 
-steps:
-- task: Docker@2
-  inputs:
-    command: 'buildAndPush'
-    containerRegistry: 'Azure Docker'
-    repository: 'gprojectsazbhjbassessmenttest2'
-    Dockerfile: '**/Dockerfile'
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+   
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+    # Here we create a build source Artifact file to keep the Terraform files locally to be used in the release pipeline process
+    # This setting create the zip Artifacte file 
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+
+    # This setting stored the zip'ed Artifcate to location
+    - task: CopyPublishBuildArtifacts@1
+      inputs:
+        CopyRoot: '$(Build.ArtifactStagingDirectory)'
+        Contents: '**'
+        ArtifactName: 'drop'
+        ArtifactType: 'Container'

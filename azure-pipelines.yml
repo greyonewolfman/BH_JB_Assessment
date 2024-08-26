@@ -19,7 +19,7 @@ steps:
 - task: Docker@2
   inputs:
     azureSubscription: 'Azure'
-    #command: 'buildAndPush'
+    command: 'buildAndPush'
     #containerRegistry: 'bhjbcontainer'
-    #repository: 'gprojectsazbhjbassessmenttest'
-    #Dockerfile: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'
+    repository: 'gprojectsazbhjbassessmenttest'
+    Dockerfile: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'

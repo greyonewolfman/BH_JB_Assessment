@@ -9,22 +9,13 @@ trigger:
 resources:
 - repo: self
 
-variables:
-  AzureServiceConnection: 'Azure'
-
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Azure'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
 - task: Docker@2
   inputs:
-    azureSubscription: 'Azure'
     command: 'buildAndPush'
-    containerRegistry: 'bhjbcontainer.azurecr.io'
+    containerRegistry: 'bhjbcontainer'
     repository: 'gprojectsazbhjbassessmenttest'
     Dockerfile: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'

@@ -20,6 +20,6 @@ steps:
   inputs:
     azureSubscription: 'Azure'
     command: 'buildAndPush'
-    #containerRegistry: 'bhjbcontainer'
+    containerRegistry: 'bhjbcontainer.azurecr.io'
     repository: 'gprojectsazbhjbassessmenttest'
     Dockerfile: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'

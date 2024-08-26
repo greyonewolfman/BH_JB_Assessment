@@ -13,7 +13,7 @@ variables:
   dockerRegistryServiceConnection: 'Azure Docker'
   imageRepository: 'gprojectsazbhjbassessment'
   containerRegistry: 'bhjbcontainer'
-  dockerfilePath: '$(Build.SourcesDirectory)/aspnet-core-dotnet-core/Dockerfile'
+  dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'  
 
   # Agent VM image name

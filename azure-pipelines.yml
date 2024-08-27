@@ -10,8 +10,8 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'Azure Docker'
-  imageRepository: 'gprojectsazbhjbassessment'
+  dockerRegistryServiceConnection: 'Docker Registry'
+  imageRepository: 'gprojectsazbhjbassessmentforked'
   containerRegistry: 'bhjbcontainer'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'  
